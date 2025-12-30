@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>HYZR Premium Spin & Win</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at center, #1b1b1b, #000);
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    overflow-x: hidden;
+}
+header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #FFD700, #FF8C00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #FFD700;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    margin-top: 5px;
+}
+.wheel-wrapper {
+    width: 100%;
+    max-width: 450px;
+    height: 450px;
+    position: relative;
+    margin: 20px 0;
+    perspective: 1200px;
+}
+.wheel-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.wheel-segment {
+    position: absolute;
+    width: 60%;
+    height: 70%;
+    left: 20%;
+    top: 15%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    backface-visibility: hidden;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 0 10px rgba(0,0,0,0.3);
+}
+.pointer {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 60px solid #FF3333;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6));
+    z-index: 20;
+}
+.pointer::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: -20px;
+    width: 40px;
+    height: 20px;
+    background: #cc0000;
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+.spin-button {
+    width: 200px;
+    padding: 18px;
+    font-size: 26px;
+    font-weight: 800;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(180deg, #FFD700, #FFA500);
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255,215,0,0.5);
+    transition: all 0.2s;
+    margin-bottom: 20px;
+}
+.spin-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255,215,0,0.7);
+}
+.spin-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+#result {
+    font-size: 28px;
+    font-weight: 700;
+    min-height: 50px;
+    text-align: center;
+    color: #FFD700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+/* PREMIUM CLAIM BUTTON */
+.claim-button {
+    width: 220px;
+    padding: 18px;
+    font-size: 22px;
+    font-weight: 800;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(145deg, #00C853, #009624, #00E676);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 
+        0 4px 12px rgba(0,200,83,0.6), 
+        0 8px 20px rgba(0,0,0,0.3),
+        inset 0 -2px 8px rgba(255,255,255,0.2);
+    display: none;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+.claim-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 6px 18px rgba(0,200,83,0.8),
+        0 12px 25px rgba(0,0,0,0.5),
+        inset 0 -2px 10px rgba(255,255,255,0.3);
+}
+.claim-button:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 
+        0 4px 12px rgba(0,200,83,0.6),
+        0 8px 20px rgba(0,0,0,0.4),
+        inset 0 -1px 5px rgba(255,255,255,0.2);
+}
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FFD700;
+    opacity: 0.9;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 50;
+    animation: confetti-fall 2s linear forwards;
+}
+@keyframes confetti-fall {
+    0% {transform: translateY(0) rotate(0deg);}
+    100% {transform: translateY(500px) rotate(720deg); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>HYZR Spin & Win</h1>
+    <div class="subtitle">Spin to win amazing prizes!</div>
+</header>
+
+<div class="wheel-wrapper">
+    <div class="pointer"></div>
+    <div class="wheel-container" id="wheel"></div>
+</div>
+
+<button class="spin-button" id="spin">SPIN</button>
+<div id="result"></div>
+<button class="claim-button" id="claim">CLAIM PRIZE ON WHATSAPP</button>
+
+<script>
+const prizes = ["₹50","₹5","₹10","Better Luck Next Time"];
+const colors = ["#FF3333","#FFAA33","#33CCFF","#AAAAAA"];
+const weights = [1,7,8,84];
+
+const wheel = document.getElementById('wheel');
+const spinBtn = document.getElementById('spin');
+const result = document.getElementById('result');
+const claimBtn = document.getElementById('claim');
+
+const numSegments = prizes.length;
+const segmentAngle = 360 / numSegments;
+const radius = 180;
+let lastWon = '';
+
+prizes.forEach((prize, i) => {
+    const seg = document.createElement('div');
+    seg.className = 'wheel-segment';
+    seg.textContent = prize;
+    const light = colors[i];
+    const dark = colors[i]==="#AAAAAA" ? "#888888" : colors[i];
+    seg.style.background = `linear-gradient(145deg, ${light}, ${dark})`;
+    seg.style.transform = `rotateY(${i*segmentAngle}deg) translateZ(${radius}px)`;
+    if(prize==="₹50"){seg.style.boxShadow+=',0 0 30px rgba(255,0,0,0.5)'; seg.style.color="#fff";}
+    wheel.appendChild(seg);
+});
+
+function getWeightedRandomIndex() {
+    const total = weights.reduce((a,b)=>a+b,0);
+    let r = Math.random()*total;
+    for(let i=0;i<numSegments;i++){
+        if(r<weights[i]) return i;
+        r -= weights[i];
+    }
+    return numSegments-1;
+}
+
+let isSpinning = false;
+let currentAngle = 0;
+let velocity = 0;
+const friction = 0.97;
+
+function animate(time){
+    if(isSpinning){
+        currentAngle += velocity/60;
+        wheel.style.transform = `rotateY(${currentAngle}deg)`;
+        velocity *= friction;
+        if(velocity<0.5){
+            isSpinning=false;
+            snapSegment();
+        }
+        requestAnimationFrame(animate);
+    }
+}
+
+function snapSegment(){
+    const normalized = ((currentAngle%360)+360)%360;
+    const segmentIndex = Math.round(normalized/segmentAngle)%numSegments;
+    const winnerIndex = (numSegments-segmentIndex)%numSegments;
+    const targetAngle = segmentIndex*segmentAngle;
+    currentAngle -= (normalized-targetAngle);
+    wheel.style.transition='transform 0.8s cubic-bezier(0.2,1,0.4,1)';
+    wheel.style.transform=`rotateY(${currentAngle}deg)`;
+    setTimeout(()=>{
+        wheel.style.transition='none';
+        const won = prizes[winnerIndex];
+        lastWon = won;
+        if(won.includes("Better Luck")){
+            result.textContent = won+' 😞';
+            claimBtn.style.display='none';
+        }else{
+            result.innerHTML=`You won <span style="color:#00c853">${won}</span>! 🎉`;
+            claimBtn.style.display='block';
+            spawnConfetti();
+        }
+        spinBtn.disabled=false;
+    },800);
+}
+
+spinBtn.addEventListener('click', ()=>{
+    if(isSpinning) return;
+    result.textContent='';
+    claimBtn.style.display='none';
+    spinBtn.disabled=true;
+    isSpinning=true;
+    wheel.style.transition='none';
+    velocity=900+Math.random()*700;
+    requestAnimationFrame(animate);
+});
+
+// WhatsApp Claim
+claimBtn.addEventListener('click', ()=>{
+    if(lastWon && !lastWon.includes("Better Luck")){
+        const message = encodeURIComponent(`Hello HYZR Team! I just won ${lastWon} in the HYZR Spin & Win! 🎉 Please send me the prize. Thank you!`);
+        const whatsappNumber="918301848918";
+        const whatsappUrl=`https://wa.me/${whatsappNumber}?text=${message}`;
+        window.open(whatsappUrl,'_blank');
+    }
+});
+
+// Confetti
+function spawnConfetti(){
+    for(let i=0;i<30;i++){
+        const conf = document.createElement('div');
+        conf.className='confetti';
+        conf.style.left=(Math.random()*window.innerWidth)+'px';
+        conf.style.background=['#FFD700','#FF5733','#33FFAA','#33CCFF','#FF33F0'][Math.floor(Math.random()*5)];
+        conf.style.width = conf.style.height = (5+Math.random()*5)+'px';
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),2000);
+    }
+}
+</script>
+</body>
+</html>
