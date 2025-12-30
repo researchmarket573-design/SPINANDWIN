@@ -8,9 +8,9 @@
 <style>
 body {
     margin: 0;
-    background: radial-gradient(circle at center, #1b1b1b, #000);
+    background: #ffffff; /* White background */
     font-family: 'Poppins', sans-serif;
-    color: #fff;
+    color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,13 +28,13 @@ h1 {
     background: linear-gradient(90deg, #FFD700, #FF8C00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    text-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 .subtitle {
     font-size: 18px;
     font-weight: 600;
-    color: #FFD700;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    color: #FF8C00;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.1);
     margin-top: 5px;
 }
 .wheel-wrapper {
@@ -65,10 +65,10 @@ h1 {
     justify-content: center;
     font-weight: 700;
     font-size: 24px;
-    color: #fff;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    color: #222;
+    text-shadow: 1px 1px 5px rgba(255,255,255,0.5);
     backface-visibility: hidden;
-    box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 15px rgba(0,0,0,0.1), inset 0 0 10px rgba(0,0,0,0.05);
 }
 .pointer {
     position: absolute;
@@ -80,7 +80,7 @@ h1 {
     border-left: 30px solid transparent;
     border-right: 30px solid transparent;
     border-top: 60px solid #FF3333;
-    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6));
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.2));
     z-index: 20;
 }
 .pointer::after {
@@ -103,13 +103,13 @@ h1 {
     background: linear-gradient(180deg, #FFD700, #FFA500);
     color: #000;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(255,215,0,0.5);
+    box-shadow: 0 6px 15px rgba(255,215,0,0.4);
     transition: all 0.2s;
     margin-bottom: 20px;
 }
 .spin-button:hover:not(:disabled) {
     transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(255,215,0,0.7);
+    box-shadow: 0 10px 20px rgba(255,215,0,0.6);
 }
 .spin-button:disabled {
     opacity: 0.6;
@@ -120,8 +120,8 @@ h1 {
     font-weight: 700;
     min-height: 50px;
     text-align: center;
-    color: #FFD700;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    color: #FF8C00;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 /* PREMIUM CLAIM BUTTON */
 .claim-button {
@@ -136,25 +136,25 @@ h1 {
     cursor: pointer;
     box-shadow: 
         0 4px 12px rgba(0,200,83,0.6), 
-        0 8px 20px rgba(0,0,0,0.3),
+        0 8px 20px rgba(0,0,0,0.2),
         inset 0 -2px 8px rgba(255,255,255,0.2);
     display: none;
     margin-top: 10px;
     transition: all 0.3s ease;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 .claim-button:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 
         0 6px 18px rgba(0,200,83,0.8),
-        0 12px 25px rgba(0,0,0,0.5),
+        0 12px 25px rgba(0,0,0,0.4),
         inset 0 -2px 10px rgba(255,255,255,0.3);
 }
 .claim-button:active {
     transform: translateY(2px) scale(0.98);
     box-shadow: 
         0 4px 12px rgba(0,200,83,0.6),
-        0 8px 20px rgba(0,0,0,0.4),
+        0 8px 20px rgba(0,0,0,0.3),
         inset 0 -1px 5px rgba(255,255,255,0.2);
 }
 /* Confetti */
